@@ -23,7 +23,7 @@ int main() {
   printf("\n El valor del discriminante es: \n k=%d",k);
 
   //Calculamos el radio
-  aux1 = pow(d,2) + pow(e,2) - (4+f);
+  aux1 = pow(d,2) + pow(e,2) - (4 * f);
   radio = ( sqrt(aux1)) /2;
   //Calculamos su excentricidad
   aux2 = 1 - (a/c);
@@ -37,11 +37,24 @@ int main() {
     if(a == 1 && c == 1 && b == 0){
       
       printf("\n La cónica es una circunferencia ");
-      printf("\n Su radio es:  %.2f",radio);
+      if(isnan(radio) )
+        printf("\n Su radio(imaginario) es raiz de %.2f",aux1);
+      else
+        printf("\n Su radio es:  %.2f",radio);
       printf("\n Su excentricidad es:  %.2f",excen);
 
-    } else {
-      printf("La cónica pertenece a una elipse");
+    // Cuando 0 < e < 1 elipse
+    } else if(excen > 0 && excen < 1 ){
+      printf("\n La cónica pertenece a una elipse");
+      int absoluteA,absoluteC;
+      //Sacamos los valores absolutos de a y c para ver que tipo de elipse es
+      absoluteA = sqrt(pow(a,2));
+      absoluteC = sqrt(pow(c,2));
+      //Hacemos la comparacion
+      if(absoluteA < absoluteC)
+        printf("\n Elipse horizontal");
+      else if(absoluteC < absoluteA)
+        printf("\n Elipse vertical");
     }
   } else if(k == 0 || (a == 0 && b != 0) || (a != 0 && b==0)){
     printf("\n La seccion cónica pertenece a una parabola");
